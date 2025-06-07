@@ -1,0 +1,18 @@
+# Ignore all CSV files
+*.csv
+
+# Ignore log files
+*.log
+
+# Ignore test or trial scripts
+test.py
+trial.py
+
+# Python cache
+__pycache__/
+*.pyc
+
+
+# Environment files
+.env
+
