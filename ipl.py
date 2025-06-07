@@ -65,7 +65,12 @@ Guidelines:
 - For run outs: use `wicket_kind = 'run out'` and match `fielders_involved` with `players.player_name` using `LIKE`.
 - Prefer SQL window functions (`RANK()`, `ROW_NUMBER()`, etc.) for ranking queries.
 - Return only the final SQL query without explanation.
-
+- Use match_data.player_of_match to find the player who won the Player of the Match award. This field contains the player ID, so JOIN with players table on players.player_id
+- Matches in playoffs have match_data.match_number IS NULL
+- Use match_data.season to filter by year or season range.
+      Example for range:
+      WHERE match_data.season BETWEEN 2018 AND 2020
+- For stumpings: wicket_kind = 'stumped'
 Examples:
 
 Q: How many runs did Dhoni score in 2018?
@@ -167,6 +172,26 @@ WHERE b.is_wicket = 1
 GROUP BY p.player_name
 ORDER BY total_wickets DESC
 LIMIT 1;
+
+Q:Who has the most Player of the Match awards in IPL history?
+A: SELECT p.player_full_name, COUNT(*) AS motm_awards
+FROM match_data m
+JOIN players p ON m.player_of_match = p.player_id
+GROUP BY p.player_full_name
+ORDER BY motm_awards DESC
+LIMIT 1;
+
+Q: Who won the most Player of the Match awards in 2019?
+A: SELECT p.player_full_name, COUNT(*) AS motm_awards
+FROM match_data m
+JOIN players p ON m.player_of_match = p.player_id
+WHERE m.season = 2019
+GROUP BY p.player_full_name
+ORDER BY motm_awards DESC
+LIMIT 1;
+
+
+ 
 
 Now generate only the correct SQL query for this question:
 
