@@ -177,7 +177,7 @@ Return only the SQL query, nothing else.
     model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
     response = model.generate_content(prompt)
     logging.info(f"QUESTION: {question}")
-    logging.info(f"SQL QUERY: {response.text.strip().split("```sql")[-1].split("```")[-2].strip() if "```sql" in response.text else response.text.strip()}")
+    logging.info(f"SQL QUERY: {response.text.strip().split('```sql')[-1].split('```')[-2].strip() if '```sql' in response.text else response.text.strip()}")
     return response.text.strip().split("```sql")[-1].split("```")[-2].strip() if "```sql" in response.text else response.text.strip()
 
 def execute_sql_query(sql_query):
