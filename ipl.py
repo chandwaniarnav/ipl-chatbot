@@ -194,20 +194,20 @@ Q:Matches played at Wankhede in IPL history?
 
 A:SELECT COUNT(DISTINCT match_id)
 FROM match_data
-WHERE venue = 'Wankhede Stadium';
+WHERE venue LIKE '%Wankhede Stadium%';
 
-Q:Matches at Eden Gardens in IPL 2024?
+Q:Matches at Wankhede Stadium in IPL 2025?
 
 A:SELECT COUNT(DISTINCT match_id)
-FROM match_data
-WHERE venue = 'Eden Gardens'
-  AND season = 2024;
+   FROM match_data
+   WHERE season = 2025
+   AND venue LIKE '%Wankhede Stadium%';
 
 Q:Matches won by batting first at Wankhede?
 
 A:SELECT COUNT(DISTINCT match_id)
 FROM match_data
-WHERE venue = 'Wankhede Stadium'
+WHERE venue LIKE '%Wankhede Stadium%'
   AND win_by_runs > 0;  
 
 Now generate only the correct SQL query for this question:
