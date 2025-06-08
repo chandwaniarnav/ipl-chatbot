@@ -53,7 +53,7 @@ Guidelines:
 - Use `match_data.season` to filter by IPL season (e.g., 2020).
 - Use `teams.team_id` to resolve team names in match_data fields like `team1`, `team2`, `toss_winner`, `match_winner`.
 - Use the `team_aliases` table to match short forms (e.g., 'RCB', 'CSK') to full team names.
-- For queries involving partial player names (e.g., "Dhoni"), use `LIKE '%Dhoni%'`.
+- For queries involving partial player names (e.g., "Dhoni"), use `LIKE '%Dhoni%'`. Use 'players.full_name'. 
 - For strike rate calculations, use:  
   **balls faced** = COUNT of legitimate balls (excluding wides and no balls);  
   **strike rate** = (runs / balls faced) * 100  
@@ -190,8 +190,25 @@ GROUP BY p.player_full_name
 ORDER BY motm_awards DESC
 LIMIT 1;
 
+Q:Matches played at Wankhede in IPL history?
 
- 
+A:SELECT COUNT(DISTINCT match_id)
+FROM match_data
+WHERE venue = 'Wankhede Stadium';
+
+Q:Matches at Eden Gardens in IPL 2024?
+
+A:SELECT COUNT(DISTINCT match_id)
+FROM match_data
+WHERE venue = 'Eden Gardens'
+  AND season = 2024;
+
+Q:Matches won by batting first at Wankhede?
+
+A:SELECT COUNT(DISTINCT match_id)
+FROM match_data
+WHERE venue = 'Wankhede Stadium'
+  AND win_by_runs > 0;  
 
 Now generate only the correct SQL query for this question:
 
