@@ -61,6 +61,7 @@ Guidelines:
 - For batting average: use (total runs) / (number of dismissals).
 - For bowling strike rate: use (total legitimate balls bowled) / (number of wickets taken).
 - For bowling average: use (total runs conceded) / (number of wickets taken).
+- For economy rate: use ((total runs conceded) / (total legitimate balls bowled)) * 6
 - For catches: use `wicket_kind = 'caught'` and match `fielders_involved` with `players.player_name` using `LIKE`.
 - For run outs: use `wicket_kind = 'run out'` and match `fielders_involved` with `players.player_name` using `LIKE`.
 - Prefer SQL window functions (`RANK()`, `ROW_NUMBER()`, etc.) for ranking queries.
@@ -71,6 +72,15 @@ Guidelines:
       Example for range:
       WHERE match_data.season BETWEEN 2018 AND 2020
 - For stumpings: wicket_kind = 'stumped'
+For playoff matches (Qualifier 1, Eliminator, Qualifier 2, Final) where match_number is NULL, use match_id ordering within the season:
+- Smallest match_id → Qualifier 1
+- Then Eliminator
+- Then Qualifier 2
+- Largest match_id → Final
+
+When asked about player stats (overall, season-wise, or in playoffs), always return full stats:
+- Batting: total runs, strike rate, average
+- Bowling: wickets, strike rate, economy, average
 Examples:
 
 Q: How many runs did Dhoni score in 2018?
