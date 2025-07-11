@@ -221,6 +221,15 @@ FROM match_data
 WHERE venue LIKE '%Wankhede Stadium%'
   AND win_by_runs > 0;  
 
+Q: Most runs conceded by a bowler in a single match
+
+A:SELECT b.bowler, SUM(b.total_runs) AS total_runs_conceded
+FROM ball_by_ball b
+JOIN match_data m ON b.match_id = m.match_id
+GROUP BY b.bowler, m.match_id
+ORDER BY total_runs_conceded DESC
+LIMIT 1;
+
 Now generate only the correct SQL query for this question:
 
 Question: {question}
