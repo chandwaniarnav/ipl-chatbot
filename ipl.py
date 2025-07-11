@@ -50,7 +50,8 @@ Guidelines:
 - Use only the columns and table names as defined above.
 - The `batter`, `bowler`, `player_out`, `fielders_involved` fields store **player names**, not IDs.
 - Use JOINs with `players.player_name` when filtering or selecting players.
-- Use `match_data.season` to filter by IPL season (e.g., 2020).
+- Use `match_data.season` to filter by IPL season (e.g., 2018).Exception: IPL 2020 is stored as '2020/21' in the database, so to query IPL 2020, use:
+    WHERE match_data.season LIKE '%2020%'
 - Use `teams.team_id` to resolve team names in match_data fields like `team1`, `team2`, `toss_winner`, `match_winner`.
 - Use the `team_aliases` table to match short forms (e.g., 'RCB', 'CSK') to full team names.
 - For queries involving partial player names (e.g., "Dhoni"), use `LIKE '%Dhoni%'`. Use 'players.full_name'. 
