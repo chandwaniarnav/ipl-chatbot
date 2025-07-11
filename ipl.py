@@ -230,6 +230,19 @@ GROUP BY b.bowler, m.match_id
 ORDER BY total_runs_conceded DESC
 LIMIT 1;
 
+Q: Team with the highest average score in IPL 2022
+
+A:SELECT ta.alias_name AS team_name, AVG(s.total_runs) AS average_score FROM (SELECT match_id, team_batting, SUM(total_runs) AS total_runs 
+FROM ball_by_ball 
+WHERE innings IN (1, 2) 
+GROUP BY match_id, team_batting) s 
+JOIN match_data m ON s.match_id = m.match_id 
+JOIN team_aliases ta ON s.team_batting = ta.team_id 
+WHERE m.season = 2022 
+GROUP BY ta.alias_name 
+ORDER BY average_score 
+DESC LIMIT 1;
+
 Now generate only the correct SQL query for this question:
 
 Question: {question}
