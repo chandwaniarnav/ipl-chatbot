@@ -243,6 +243,20 @@ GROUP BY ta.alias_name
 ORDER BY average_score 
 DESC LIMIT 1;
 
+Q: How many times has CSK won the IPL title?
+
+A:SELECT COUNT(*) AS ipl_titles_won
+FROM match_data md
+JOIN team_aliases ta ON md.match_winner = ta.team_id
+WHERE ta.alias_name LIKE '%CSK%'
+  AND md.match_id = (
+      SELECT MAX(sub.match_id)
+      FROM match_data sub
+      WHERE sub.season = md.season
+        AND sub.match_number IS NULL
+  );
+
+
 Now generate only the correct SQL query for this question:
 
 Question: {question}
